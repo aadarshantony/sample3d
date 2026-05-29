@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Syncopate, Outfit } from "next/font/google";
 import "./globals.css";
-import ParticleField from "@/components/ParticleField";
 
 const syncopate = Syncopate({
   weight: ["400", "700"],
