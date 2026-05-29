@@ -13,15 +13,14 @@ import * as THREE from "three";
 
 function AlienModel() {
   const { scene } = useGLTF("/models/cute_alien_character.glb");
-
   const clonedScene = useMemo(() => scene.clone(), [scene]);
 
   return (
-    <Float speed={1.5} rotationIntensity={0.2} floatIntensity={3}>
+    <Float speed={1.5} rotationIntensity={0.2} floatIntensity={1}>
       <primitive
         object={clonedScene}
         scale={1.25}
-        position={[0, 0, 0]} 
+        position={[0, 0, 0]}
       />
     </Float>
   );
@@ -32,7 +31,6 @@ function LoaderMesh() {
 
   useFrame((state) => {
     if (!meshRef.current) return;
-
     meshRef.current.rotation.x = state.clock.elapsedTime * 0.5;
     meshRef.current.rotation.y = state.clock.elapsedTime * 1;
   });
@@ -51,23 +49,16 @@ export default function AlienViewer() {
       <Canvas
         shadows
         dpr={[1, 2]}
-        camera={{ position: [0, 0.5, 4], fov: 40 }}
+        camera={{ position: [0, 0.5, 4.5], fov: 40 }}
       >
         <ambientLight intensity={0.6} />
-
-        <directionalLight
-          position={[5, 5, 5]}
-          intensity={2}
-          castShadow
-        />
-
+        <directionalLight position={[5, 5, 5]} intensity={2} castShadow />
         <pointLight position={[-3, 2, 2]} intensity={2} color="#22d3ee" />
+        <pointLight position={[3, -1, -2]} intensity={1.2} color="#6366f1" />
 
         <Suspense fallback={<LoaderMesh />}>
           <AlienModel />
-
           <Environment preset="city" />
-
           <ContactShadows
             position={[0, -1.8, 0]}
             opacity={0.4}
@@ -82,6 +73,7 @@ export default function AlienViewer() {
           enablePan={false}
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
+          makeDefault
         />
       </Canvas>
     </div>

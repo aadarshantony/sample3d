@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Syncopate, Outfit } from "next/font/google";
 import "./globals.css";
+import ParticleField from "@/components/ParticleField";
 
 const syncopate = Syncopate({
   weight: ["400", "700"],
@@ -26,7 +27,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${syncopate.variable} ${outfit.variable} antialiased`}>
-        {children}
+        <div className="relative z-10">
+          {children}
+        </div>
       </body>
     </html>
   );
